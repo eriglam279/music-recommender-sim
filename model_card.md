@@ -63,14 +63,14 @@ instead of letting one strong genre match monopolize every slot.
 ## Limitations and biases
 
 - **No collaborative signal.** Real recommenders lean heavily on "users like
-  you also liked this" — this system only ever looks at content features and
+  you also liked this" -- this system only ever looks at content features and
   one user's stated preferences, so it can never surprise a listener with
   something outside their stated taste, and it can't benefit from the wisdom
   of other listeners.
 - **Small, synthetic, imbalanced dataset.** 20 songs across 5 genres (3-5
   each) is orders of magnitude smaller than a real catalog, and genre
   representation is roughly even here only because it was hand-designed that
-  way — a real dataset scraped from a real service is rarely this balanced,
+  way -- a real dataset scraped from a real service is rarely this balanced,
   and genre imbalance in the input data directly biases which genres tend to
   score well overall.
 - **Popularity bias risk.** The `popularity_preference` feature, if set to
@@ -81,17 +81,17 @@ instead of letting one strong genre match monopolize every slot.
   0/1 match worth up to 25-45% of the score depending on mode, a user with
   one strongly-weighted genre preference will see their list dominated by
   that genre and, within it, by whichever artist happens to have the most
-  catalog matches — demonstrated in the README's Hip-Hop Head example, where
+  catalog matches -- demonstrated in the README's Hip-Hop Head example, where
   the same artist appears twice in the unfiltered top 4. The `--diversify`
   flag mitigates but does not eliminate this (it re-ranks by penalty, it
   doesn't guarantee a fixed diversity quota).
 - **Static preferences, no learning.** `user_prefs` is authored once and
-  never updated from behavior (skips, replays, likes) — real systems infer
+  never updated from behavior (skips, replays, likes) -- real systems infer
   and continuously update taste profiles; this one requires the user (or
   the profile author) to state preferences explicitly and correctly.
 - **Categorical matching is brittle.** Genre and era use exact string match,
   so a song tagged `"hip-hop"` scores 0 against a user who typed
-  `"hiphop"` or `"rap"` — there is no synonym/ontology layer.
+  `"hiphop"` or `"rap"` -- there is no synonym/ontology layer.
 
 ## Improvement ideas
 
@@ -110,11 +110,11 @@ instead of letting one strong genre match monopolize every slot.
 ## Stretch features implemented
 
 - **Extra attributes** (`popularity`, `release_decade`, `mood_tags`,
-  `danceability`, `acousticness`) — see `ai_interactions.md`.
-- **Diversity/fairness component** — `recommender/diversity.py`, described
+  `danceability`, `acousticness`) -- see `ai_interactions.md`.
+- **Diversity/fairness component** -- `recommender/diversity.py`, described
   above and demonstrated in the README.
-- **Multiple ranking modes** — `balanced`, `genre_first`, `mood_first`,
+- **Multiple ranking modes** -- `balanced`, `genre_first`, `mood_first`,
   `energy_similarity` in `recommender/scoring.py`, switchable via
   `python main.py --mode <name>`.
-- **Visual output** — `main.py` renders results as a `tabulate` table
+- **Visual output** -- `main.py` renders results as a `tabulate` table
   (title, artist, genre, score, explanation) instead of raw prints.

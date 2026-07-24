@@ -25,7 +25,7 @@ logic so they actually affect the score, not just sit unused in the data."
   "mainstream" listeners, low popularity for "underground" listeners).
 - Extended `mood` scoring to check `mood_tags` for partial credit (0.6) when
   the primary `mood` string doesn't match exactly but a secondary tag does
-  — this was the agent's own addition to make the extra `mood_tags` field
+  -- this was the agent's own addition to make the extra `mood_tags` field
   functionally meaningful rather than decorative.
 - Updated all four `RANKING_MODES` weight presets to include the new
   features so they sum to ~1.0 again.
@@ -45,7 +45,7 @@ genre-first vs. mood-first) that a user can switch between, using a proper
 design pattern rather than duplicating the scoring function."
 
 **Design pattern chosen:** **Strategy pattern**, implemented as data rather
-than subclasses — `RANKING_MODES` in `recommender/scoring.py` is a dict of
+than subclasses -- `RANKING_MODES` in `recommender/scoring.py` is a dict of
 named weight presets, and `score_song(user_prefs, song, mode=...)` is the
 single scoring algorithm parameterized by whichever preset is selected. A
 class-based Strategy (one class per mode with a `.score()` method) was
@@ -62,7 +62,7 @@ data-driven Strategy variant directly.
 
 **Manual verification:** ran the same profile (`hiphop_head`) through all
 four modes and confirmed the ranking and the printed explanation both change
-in the direction implied by the mode's dominant weight — e.g. under
+in the direction implied by the mode's dominant weight -- e.g. under
 `mood_first` the explanation text reorders to name the mood match before the
 genre match for the same song, confirming the weight change actually flows
 through to both scoring and the explanation, not just a cosmetic label.
@@ -74,13 +74,13 @@ artist penalty) so the recommender doesn't just repeat one artist across
 every slot, and document how it improves fairness in the model card."
 
 **What was generated:** `recommender/diversity.py`'s `diversify()` function
-— a greedy re-ranking pass (conceptually similar to Maximal Marginal
+-- a greedy re-ranking pass (conceptually similar to Maximal Marginal
 Relevance) that tracks how many times each artist and genre has already been
 selected and subtracts a proportional penalty from remaining candidates'
 scores before picking the next slot.
 
 **Manual verification:** confirmed via the dataset's two Dre Larkin hip-hop
-songs — running the Hip-Hop Head profile at `--top 4` without `--diversify`
+songs -- running the Hip-Hop Head profile at `--top 4` without `--diversify`
 put a second Dre Larkin song in the #4 slot; with `--diversify` that slot
 was replaced by a different artist/genre entirely (see README for the exact
 before/after table). Also added
